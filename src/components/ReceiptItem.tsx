@@ -6,7 +6,7 @@ interface ReceiptProps {
 }
 
 const ReceiptItem: React.FC<ReceiptProps> = ({ item, removeFromReceipt }) => {
-  const { name, totalWithTax } = item;
+  const { name, totalWithTax, multipleTotal, count } = item;
   const handleClick = (item: Item) => (event: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
     event.preventDefault();
     if (EventTarget !== null) {
@@ -16,9 +16,15 @@ const ReceiptItem: React.FC<ReceiptProps> = ({ item, removeFromReceipt }) => {
   return (
     <div>
       <li onClick={handleClick(item)}>
-        <h3>
-          {name}: {totalWithTax}
-        </h3>
+        {count! > 1 ? (
+          <h3>
+            {name}: {multipleTotal} ({count} @ {totalWithTax})
+          </h3>
+        ) : (
+          <h3>
+            {name}: {totalWithTax}
+          </h3>
+        )}
       </li>
     </div>
   );

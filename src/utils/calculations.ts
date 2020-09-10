@@ -16,11 +16,13 @@ export const getTaxForItem = (item: Item) => {
       ...item,
       totalTax: item.totalTax =
         item.salesTax && item.imported
-          ? round((+item.price * salesTaxRate + +item.price * importTaxRate).toString())
+          ? (+round(String(+round(String(+item.price * salesTaxRate)) + +round(String(+item.price * importTaxRate)))))
+              .toFixed(2)
+              .toString()
           : item.salesTax && !item.imported
-          ? round((+item.price * salesTaxRate).toString())
+          ? (+round(String(+item.price * salesTaxRate))).toFixed(2).toString()
           : !item.salesTax && item.imported
-          ? round((+item.price * importTaxRate).toString())
+          ? (+round(String(+item.price * importTaxRate))).toFixed(2).toString()
           : '0',
     };
   }
@@ -30,21 +32,28 @@ export const getTotalWithTax = (item: Item) => {
   if (item && item.totalTax)
     return {
       ...item,
-      totalWithTax: item.totalWithTax = round((+item.price + +item.totalTax).toString()),
+      totalWithTax: item.totalWithTax = (+item.price + +item.totalTax).toFixed(2).toString(),
     };
+};
+
+export const getMultipleTotal = (item: Item) => {
+  if (item.count! > 1) {
+    item.multipleTotal = String((+item.totalWithTax! * item.count!).toFixed(2));
+  }
 };
 
 export const addValues = (item: Item) => {
   getTaxForItem(item);
   getTotalWithTax(item);
+  getMultipleTotal(item);
 };
 
 export const addAllTaxes = (items: Items) => {
   const taxes = items.map((item) => item.totalTax);
-  return taxes.reduce((a, b) => a && b && String(+a + +b));
+  return taxes.reduce((a, b) => a && b && String(+a + +b), '0');
 };
 
 export const getTotal = (items: Items) => {
   const totals = items.map((item) => item.totalWithTax);
-  return totals.reduce((a, b) => a && b && String(+a + +b));
+  return totals.reduce((a, b) => a && b && String(+a + +b), '0');
 };

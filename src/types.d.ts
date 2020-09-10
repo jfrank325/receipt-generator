@@ -5,6 +5,9 @@ type Item = {
   imported?: boolean = false;
   totalTax?: string;
   totalWithTax?: string;
+  [index: number]: boolean;
+  count?: number = 1;
+  multipleTotal?: string;
 };
 
 type Items = Array<Item>;
