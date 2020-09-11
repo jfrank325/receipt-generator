@@ -1,9 +1,5 @@
 import React, { useState, FormEvent } from 'react';
 
-interface AddItemProps {
-  addItem: AddItem;
-}
-
 const AddNewItem: React.FC<AddItemProps> = ({ addItem }) => {
   const [newItemProp, setNewItemProp] = useState<Partial<Item>>({});
 
@@ -23,7 +19,7 @@ const AddNewItem: React.FC<AddItemProps> = ({ addItem }) => {
 
   return (
     <form className="item-input-form">
-      <h4>Add Custom Item</h4>
+      <h4>Add Custom Product</h4>
       <div className="inputs">
         <input
           type="text"
@@ -62,7 +58,7 @@ const AddNewItem: React.FC<AddItemProps> = ({ addItem }) => {
         </label>
       </div>
       <button className="add-item-button" type="submit" onClick={handleSubmit}>
-        Add Item
+        <h4>Add Product</h4>
       </button>
     </form>
   );

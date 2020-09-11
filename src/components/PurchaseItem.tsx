@@ -1,13 +1,9 @@
 import React from 'react';
 
-interface ItemProps {
-  item: Item;
-  addToReceipt: AddToReceipt;
-}
-
 const PurchaseItem: React.FC<ItemProps> = ({ item, addToReceipt }) => {
   const { name, price } = item;
 
+  //Adds this item to receipt.
   const handleClick = (item: Item) => (event: React.MouseEvent<HTMLLIElement, MouseEvent>): void => {
     event.preventDefault();
     if (EventTarget !== null) {
